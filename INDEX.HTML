@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spend Elon Musk's Money</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f3f3;
+            margin: 0;
+            text-align: center;
+        }
+
+        header {
+            background: #111;
+            color: white;
+            padding: 25px;
+            position: sticky;
+            top: 0;
+        }
+
+        #money {
+            font-size: 35px;
+            color: #00c853;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 25px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .item {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 3px 10px #ccc;
+        }
+
+        .item h2 {
+            margin: 10px;
+        }
+
+        .price {
+            color: #555;
+            font-weight: bold;
+        }
+
+        button {
+            background: #00c853;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        button:hover {
+            background: #009624;
+        }
+
+        button:disabled {
+            background: #aaa;
+            cursor: not-allowed;
+        }
+
+        .quantity {
+            font-size: 18px;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Spend Elon Musk's Money 💰</h1>
+    <div id="money">$100,000,000,000</div>
+</header>
+
+<div class="container" id="shop"></div>
+
+<script>
+
+let money = 100000000000;
+
+const items = [
+    ["🍔", "Burger", 2],
+    ["☕", "Coffee", 5],
+    ["📱", "iPhone", 1000],
+    ["💻", "Gaming Laptop", 2000],
+    ["🚗", "Tesla", 50000],
+    ["🏠", "Luxury House", 2000000],
+    ["🏝️", "Private Island", 50000000],
+    ["✈️", "Private Jet", 80000000],
+    ["🚀", "Space Rocket", 100000000],
+    ["🏢", "Skyscraper", 1000000000]
+];
+
+const shop = document.getElementById("shop");
+
+items.forEach((item, index) => {
+
+    const div = document.createElement("div");
+    div.className = "item";
+
+    div.innerHTML = `
+        <h1>${item[0]}</h1>
+        <h2>${item[1]}</h2>
+        <div class="price">$${item[2].toLocaleString()}</div>
+
+        <div class="quantity">
+            Quantity: <span id="q${index}">0</span>
+        </div>
+
+        <button onclick="buy(${index})">BUY</button>
+        <button onclick="sell(${index})">SELL</button>
+    `;
+
+    shop.appendChild(div);
+});
+
+let quantities = Array(items.length).fill(0);
+
+function updateMoney() {
+    document.getElementById("money").innerText =
+        "$" + money.toLocaleString();
+}
+
+function buy(index) {
+
+    let price = items[index][2];
+
+    if (money >= price) {
+        money -= price;
+        quantities[index]++;
+        document.getElementById("q" + index).innerText =
+            quantities[index];
+
+        updateMoney();
+    } else {
+        alert("You don't have enough money! 😭");
+    }
+}
+
+function sell(index) {
+
+    let price = items[index][2];
+
+    if (quantities[index] > 0) {
+        money += price;
+        quantities[index]--;
+
+        document.getElementById("q" + index).innerText =
+            quantities[index];
+
+        updateMoney();
+    }
+}
+
+</script>
+
+</body>
+</html>
