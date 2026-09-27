@@ -1,0 +1,9 @@
+{
+  "name": "Elon Money Game",
+  "short_name": "Elon Money",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "orientation": "portrait"
+}
